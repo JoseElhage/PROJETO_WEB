@@ -40,6 +40,13 @@ O acesso é protegido por autenticação: cada pessoa entra com um usuário e um
 ### Registro de logs
 O sistema grava na tabela `logs` as principais ações realizadas: logins, tentativas incorretas, bloqueios, trocas de senha, logouts e cadastros, edições e exclusões de dados, sempre identificando o usuário responsável.
 
+### Mapa (Google Maps)
+- Página **Mapa** no menu, com um mapa interativo exibido pela **API do Google Maps**
+- O mapa aponta a **localização da sede da ETEC São José dos Campos** (Etec Profª Ilza Nascimento Pintus — Av. Salmão, 570, Parque Residencial Aquarius)
+- Marcador com janela de informações mostrando o endereço da escola
+- Exibição do endereço e das coordenadas da sede, com botão **Como chegar** (abre a rota no Google Maps)
+- A chave da API é configurada em `config/maps.php`; enquanto a chave estiver vazia, o mapa é exibido pelo modo de incorporação do Google (sem chave), para não quebrar a página
+
 ### Interface
 - Tema escuro, com fonte Arial em todas as páginas
 - Layout responsivo (a tabela se adapta para telas pequenas)
@@ -52,6 +59,7 @@ O sistema grava na tabela `logs` as principais ações realizadas: logins, tenta
 - HTML
 - CSS
 - JavaScript
+- API do Google Maps (Maps JavaScript API)
 - Git
 - GitHub
 
@@ -65,7 +73,8 @@ CRUD-MUNDO/
 ├── criar_admin.php      → cria o primeiro usuário administrador
 ├── config/
 │   ├── database.php     → conexão com o banco de dados
-│   └── auth.php         → controle de sessão, permissões e registro de logs
+│   ├── auth.php         → controle de sessão, permissões e registro de logs
+│   └── maps.php         → chave da API do Google Maps e localização da sede da ETEC
 ├── includes/
 │   ├── header.php       → cabeçalho e menu, reutilizados em todas as páginas
 │   └── footer.php       → rodapé e chamada do JavaScript
@@ -79,7 +88,8 @@ CRUD-MUNDO/
     ├── continentes.php  → CRUD de continentes
     ├── paises.php       → CRUD de países
     ├── cidades.php      → CRUD de cidades
-    └── governantes.php  → CRUD de governantes
+    ├── governantes.php  → CRUD de governantes
+    └── mapa.php         → mapa da sede da ETEC São José dos Campos (Google Maps)
 ```
 
 ## Banco de dados
@@ -118,6 +128,19 @@ O banco se chama `bd_mundo` e possui 6 tabelas:
 6. Acesse `http://localhost/CRUD-MUNDO/criar_admin.php` e crie o primeiro usuário administrador.
 7. **Apague o arquivo `criar_admin.php`** depois de criar o administrador, para que ninguém mais consiga usá-lo.
 8. Acesse `http://localhost/CRUD-MUNDO/login.php` e entre com o usuário criado.
+
+## Como configurar a chave da API do Google Maps (página Mapa)
+1. Acesse o [Google Cloud Console](https://console.cloud.google.com/).
+2. Crie um projeto (ou use um já existente).
+3. Em **APIs e serviços > Biblioteca**, procure por **Maps JavaScript API** e clique em **Ativar**.
+4. Em **APIs e serviços > Credenciais**, clique em **Criar credenciais > Chave de API**.
+5. Cole a chave no arquivo `config/maps.php`, na constante `GOOGLE_MAPS_API_KEY`:
+```php
+define('GOOGLE_MAPS_API_KEY', 'SUA_CHAVE_AQUI');
+```
+6. Recarregue a página **Mapa** no site.
+
+> Observação: sem a chave, o site continua exibindo o mapa da sede da ETEC pelo modo de incorporação do Google (iframe), apenas sem usar a API.
 
 ## Como usar
 - **Administrador:** use o menu para acessar Continentes, Países, Cidades e Governantes. Preencha o formulário no topo da página e clique em **Salvar** para cadastrar. Use **Editar** para carregar os dados de um registro no formulário e **Excluir** para remover (o sistema pede confirmação).
