@@ -34,5 +34,6 @@ $pagina_atual = basename($_SERVER['PHP_SELF']);
     <a href="<?= $base ?>paginas/paises.php" class="<?= $pagina_atual == 'paises.php' ? 'ativo' : '' ?>">Países</a>
     <a href="<?= $base ?>paginas/cidades.php" class="<?= $pagina_atual == 'cidades.php' ? 'ativo' : '' ?>">Cidades</a>
     <a href="<?= $base ?>paginas/governantes.php" class="<?= $pagina_atual == 'governantes.php' ? 'ativo' : '' ?>">Governantes</a>
+    <a href="<?= $base ?>paginas/mapa.php" class="<?= $pagina_atual == 'mapa.php' ? 'ativo' : '' ?>">Mapa</a>
 </nav>
 <main>
